@@ -1,414 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soundtrack Cafe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%); /* Dark brown gradient */
-            color: #F5F5F5; /* Light text */
-            min-height: 100vh;
-        }
-        header {
-            background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%); /* Premium brown gradient */
-            color: #F5F5F5;
-            text-align: center;
-            padding: 30px 20px;
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        header::before {
-            content: "🎵";
-            font-size: 2.5em;
-            position: absolute;
-            left: 30px;
-            top: 30px;
-        }
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5em;
-            margin: 0;
-        }
-        header p {
-            font-style: italic;
-            margin: 10px 0 0 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        .category {
-            margin-bottom: 40px;
-        }
-        .category h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #D7CCC8; /* Light brown */
-            border-bottom: 2px solid #8D6E63;
-            padding-bottom: 10px;
-        }
-        .menu {
-            list-style: none;
-            padding: 0;
-        }
-        .menu-item {
-            background: linear-gradient(135deg, #5D4037 0%, #8D6E63 50%, #5D4037 100%); /* Subtle gradient */
-            border-radius: 12px;
-            margin: 15px 0;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .menu-item-details {
-            flex-grow: 1;
-        }
-        .menu-item-name {
-            font-weight: 500;
-            font-size: 1.2em;
-            margin-bottom: 5px;
-        }
-        .menu-item-desc {
-            font-size: 0.9em;
-            color: #D7CCC8;
-            margin-bottom: 10px;
-        }
-        .menu-item-price {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #FFD54F; /* Gold accent */
-        }
-        .add-btn {
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); /* Green gradient */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-        .add-btn:hover {
-            background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%);
-        }
-        .continue-btn {
-            background: linear-gradient(135deg, #2196F3 0%, #42A5F5 100%); /* Blue gradient */
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            cursor: pointer;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: none;
-            font-weight: 500;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-        .continue-btn:hover {
-            transform: translateX(-50%) translateY(-2px);
-        }
-        .summary {
-            margin-top: 60px;
-            background: linear-gradient(135deg, #5D4037 0%, #8D6E63 100%);
-            padding: 30px;
-            border-radius: 12px;
-            display: none;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-        .summary h2 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 20px;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 15px 0;
-            padding: 10px 0;
-            border-bottom: 1px solid #8D6E63;
-        }
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-        }
-        .quantity-btn {
-            background: #8D6E63;
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            cursor: pointer;
-            margin: 0 8px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-        .quantity-btn:hover {
-            background: #A1887F;
-        }
-        .total {
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-top: 20px;
-            color: #FFD54F;
-        }
-        .table-number {
-            margin-top: 20px;
-        }
-        .table-number input {
-            padding: 10px;
-            width: 100%;
-            background-color: #3E2723;
-            color: #F5F5F5;
-            border: 1px solid #8D6E63;
-            border-radius: 8px;
-            font-size: 1em;
-        }
-        .place-order-btn {
-            background: linear-gradient(135deg, #25D366 0%, #4CAF50 100%); /* WhatsApp green gradient */
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-        .place-order-btn:hover {
-            background: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soundtrack Cafe</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Roboto,sans-serif;
+  background:linear-gradient(135deg,#4E342E,#6D4C41);
+  color:#F5F5DC;
+}
+header{
+  text-align:center;
+  padding:30px;
+  background:linear-gradient(135deg,#6D4C41,#A1887F);
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+.category h2{
+  border-bottom:2px solid #A1887F;
+  padding-bottom:8px;
+  margin-top:40px;
+}
+.menu-item{
+  background:linear-gradient(135deg,#6D4C41,#A1887F);
+  padding:18px;
+  margin:15px 0;
+  border-radius:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 6px 12px rgba(0,0,0,.3);
+}
+.menu-item-details{
+  max-width:65%;
+}
+.price{
+  color:#FFD54F;
+  font-weight:bold;
+}
+.add-btn{
+  padding:10px 20px;
+  background:#4CAF50;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+.qty{
+  display:none;
+  align-items:center;
+}
+.qty button{
+  background:#8D6E63;
+  color:#fff;
+  border:none;
+  padding:6px 12px;
+  margin:0 6px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.continue{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#2196F3;
+  color:#fff;
+  padding:15px 30px;
+  border:none;
+  border-radius:10px;
+  display:none;
+}
+.summary{
+  display:none;
+  background:#6D4C41;
+  padding:25px;
+  margin-top:40px;
+  border-radius:12px;
+}
+.whatsapp{
+  background:#25D366;
+  color:#fff;
+  border:none;
+  padding:15px;
+  width:100%;
+  margin-top:20px;
+  border-radius:10px;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#4E342E;
+  color:#fff;
+  border:1px solid #A1887F;
+  border-radius:8px;
+}
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>Soundtrack Cafe</h1>
-        <p>Your cozy spot for coffee and tunes</p>
-    </header>
-    <div class="container">
-        <section id="menu">
-            <div class="category">
-                <h2>🍵 Beverages</h2>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Cappuccino</div>
-                            <div class="menu-item-desc">Rich espresso topped with steamed milk foam for a perfect balance.</div>
-                            <div class="menu-item-price">₹350</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Cappuccino', 350)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Latte</div>
-                            <div class="menu-item-desc">Smooth espresso blended with creamy steamed milk.</div>
-                            <div class="menu-item-price">₹320</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Latte', 320)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Green Tea</div>
-                            <div class="menu-item-desc">Refreshing organic green tea with a hint of lemon.</div>
-                            <div class="menu-item-price">₹250</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Green Tea', 250)">Add</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="category">
-                <h2>🥐 Breakfast</h2>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Butter Croissant</div>
-                            <div class="menu-item-desc">Flaky, golden pastry filled with rich butter.</div>
-                            <div class="menu-item-price">₹280</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Butter Croissant', 280)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Avocado Toast</div>
-                            <div class="menu-item-desc">Smashed avocado on toasted bread with cherry tomatoes.</div>
-                            <div class="menu-item-price">₹400</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Avocado Toast', 400)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Caesar Salad</div>
-                            <div class="menu-item-desc">Crisp romaine lettuce with Caesar dressing and croutons.</div>
-                            <div class="menu-item-price">₹550</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Caesar Salad', 550)">Add</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="category">
-                <h2>🥪 Sandwich</h2>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Club Sandwich</div>
-                            <div class="menu-item-desc">Layers of turkey, bacon, lettuce, and tomato on toasted bread.</div>
-                            <div class="menu-item-price">₹650</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Club Sandwich', 650)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Grilled Cheese</div>
-                            <div class="menu-item-desc">Melted cheddar cheese between crispy grilled bread.</div>
-                            <div class="menu-item-price">₹350</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Grilled Cheese', 350)">Add</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="category">
-                <h2>🍰 Dessert</h2>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Chocolate Cake</div>
-                            <div class="menu-item-desc">Decadent layers of chocolate with creamy frosting.</div>
-                            <div class="menu-item-price">₹400</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Chocolate Cake', 400)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Tiramisu</div>
-                            <div class="menu-item-desc">Classic Italian dessert with coffee-soaked ladyfingers and mascarpone.</div>
-                            <div class="menu-item-price">₹450</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Tiramisu', 450)">Add</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="category">
-                <h2>🍕 Pizza</h2>
-                <ul class="menu">
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Margherita Pizza</div>
-                            <div class="menu-item-desc">Fresh mozzarella, tomato sauce, and basil on thin crust.</div>
-                            <div class="menu-item-price">₹600</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Margherita Pizza', 600)">Add</button>
-                    </li>
-                    <li class="menu-item">
-                        <div class="menu-item-details">
-                            <div class="menu-item-name">Pepperoni Pizza</div>
-                            <div class="menu-item-desc">Spicy pepperoni slices with cheese and tomato sauce.</div>
-                            <div class="menu-item-price">₹700</div>
-                        </div>
-                        <button class="add-btn" onclick="addToCart('Pepperoni Pizza', 700)">Add</button>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <button class="continue-btn" onclick="showSummary()">Continue</button>
-        <section class="summary" id="summary">
-            <h2>Order Summary</h2>
-            <div id="summary-items"></div>
-            <div class="total">Total: ₹<span id="total-price">0</span></div>
-            <div class="table-number">
-                <label for="table">Table Number:</label>
-                <input type="text" id="table" placeholder="Enter table number">
-            </div>
-            <button class="place-order-btn" onclick="placeOrder()">Place Order via WhatsApp</button>
-        </section>
-    </div>
 
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+<header>
+<h1>🎵 Soundtrack Cafe</h1>
+<p>Good food • Good music • Good vibes</p>
+</header>
 
-        function addToCart(item, price) {
-            if (!cart[item]) {
-                cart[item] = { quantity: 1, price: price };
-            } else {
-                cart[item].quantity++;
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            document.querySelector('.continue-btn').style.display = 'block';
-        }
+<div class="container">
 
-        function showSummary() {
-            document.getElementById('summary').style.display = 'block';
-            updateSummary();
-            document.getElementById('summary').scrollIntoView({ behavior: 'smooth' });
-        }
+<div class="category">
+<h2>☕ Beverages</h2>
 
-        function updateSummary() {
-            const summaryItems = document.getElementById('summary-items');
-            summaryItems.innerHTML = '';
-            let total = 0;
-            for (const item in cart) {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'summary-item';
-                itemDiv.innerHTML = `
-                    <span>${item} (₹${cart[item].price} each)</span>
-                    <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="changeQuantity('${item}', -1)">-</button>
-                        <span>${cart[item].quantity}</span>
-                        <button class="quantity-btn" onclick="changeQuantity('${item}', 1)">+</button>
-                    </div>
-                    <span>₹${cart[item].quantity * cart[item].price}</span>
-                `;
-                summaryItems.appendChild(itemDiv);
-                total += cart[item].quantity * cart[item].price;
-            }
-            document.getElementById('total-price').textContent = total;
-        }
+<div class="menu-item">
+<div class="menu-item-details">
+<b>Cappuccino</b>
+<p>Rich espresso with milk foam</p>
+<div class="price">₹350</div>
+</div>
+<button class="add-btn" onclick="add('Cappuccino',350,this)">Add</button>
+<div class="qty">
+<button onclick="change('Cappuccino',-1,this)">-</button>
+<span>1</span>
+<button onclick="change('Cappuccino',1,this)">+</button>
+</div>
+</div>
 
-        function changeQuantity(item, delta) {
-            cart[item].quantity += delta;
-            if (cart[item].quantity <= 0) {
-                delete cart[item];
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateSummary();
-            if (Object.keys(cart).length === 0) {
-                document.querySelector('.continue-btn').style.display = 'none';
-                document.getElementById('summary').style.display = 'none';
-            }
-        }
+</div>
 
-        function placeOrder() {
-            const table = document.getElementById('table').value || 'Not specified';
-            let message = `Order Summary:\nTable: ${table}\n\n`;
-            let total = 0;
-            for (const item in cart) {
-                message += `${item} x${cart[item].quantity} - ₹${cart[item].quantity * cart[item].price}\n`;
-                total += cart[item].quantity * cart[item].price;
-            }
-            message += `\nTotal: ₹${total}\n\nPlease confirm my order.`;
-            const phoneNumber = "1234567890"; // Replace with your cafe's WhatsApp number (include country code, e.g., +91 for India)
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-        }
+<div class="category">
+<h2>🍕 Pizza</h2>
 
-        // Load summary if cart has items on page load
-        if (Object.keys(cart).length > 0) {
-            document.querySelector('.continue-btn').style.display = 'block';
-        }
-    </script>
+<div class="menu-item">
+<div class="menu-item-details">
+<b>Margherita Pizza</b>
+<p>Cheese, tomato & basil</p>
+<div class="price">₹600</div>
+</div>
+<button class="add-btn" onclick="add('Margherita Pizza',600,this)">Add</button>
+<div class="qty">
+<button onclick="change('Margherita Pizza',-1,this)">-</button>
+<span>1</span>
+<button onclick="change('Margherita Pizza',1,this)">+</button>
+</div>
+</div>
+
+<div class="menu-item">
+<div class="menu-item-details">
+<b>Pepperoni Pizza</b>
+<p>Spicy pepperoni & cheese</p>
+<div class="price">₹700</div>
+</div>
+<button class="add-btn" onclick="add('Pepperoni Pizza',700,this)">Add</button>
+<div class="qty">
+<button onclick="change('Pepperoni Pizza',-1,this)">-</button>
+<span>1</span>
+<button onclick="change('Pepperoni Pizza',1,this)">+</button>
+</div>
+</div>
+
+</div>
+
+<button class="continue" onclick="showSummary()">Continue</button>
+
+<div class="summary" id="summary">
+<h2>Order Summary</h2>
+<div id="items"></div>
+<b id="total"></b>
+
+<input id="table" placeholder="Enter Table Number">
+
+<button class="whatsapp" onclick="sendWhatsApp()">Send Order on WhatsApp</button>
+</div>
+
+</div>
+
+<script>
+let cart={};
+
+function add(name,price,btn){
+  cart[name]={price:price,qty:1};
+  btn.style.display="none";
+  btn.nextElementSibling.style.display="flex";
+  document.querySelector(".continue").style.display="block";
+}
+
+function change(name,val,el){
+  let span=el.parentElement.querySelector("span");
+  cart[name].qty+=val;
+  if(cart[name].qty<=0){
+    delete cart[name];
+    el.parentElement.style.display="none";
+    el.parentElement.previousElementSibling.style.display="block";
+  }else{
+    span.innerText=cart[name].qty;
+  }
+}
+
+function showSummary(){
+  let box=document.getElementById("items");
+  box.innerHTML="";
+  let total=0;
+  for(let i in cart){
+    let amt=cart[i].qty*cart[i].price;
+    total+=amt;
+    box.innerHTML+=`${i} × ${cart[i].qty} = ₹${amt}<br>`;
+  }
+  document.getElementById("total").innerText="Total : ₹"+total;
+  document.getElementById("summary").style.display="block";
+}
+
+function sendWhatsApp(){
+  let table=document.getElementById("table").value;
+  let msg="Order from Soundtrack Cafe\n";
+  for(let i in cart){
+    msg+=`${i} × ${cart[i].qty}\n`;
+  }
+  msg+=`Table: ${table}`;
+  window.open("https://wa.me/919370569122?text="+encodeURIComponent(msg));
+}
+</script>
+
 </body>
 </html>

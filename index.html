@@ -9,12 +9,12 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text */
         }
         header {
-            background-color: #8B4513; /* Cafe brown */
-            color: white;
+            background-color: #333333; /* Dark header */
+            color: #ffffff;
             text-align: center;
             padding: 20px;
             position: relative;
@@ -26,59 +26,118 @@
             left: 20px;
             top: 20px;
         }
-        nav {
-            background-color: #D2691E; /* Lighter brown */
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-        }
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
         .menu {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            list-style: none;
+            padding: 0;
         }
         .menu-item {
-            background-color: white;
+            background-color: #1e1e1e; /* Dark item background */
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin: 10px;
+            margin: 10px 0;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+        }
+        .menu-item-name {
+            flex-grow: 1;
+        }
+        .menu-item-price {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .add-btn {
+            background-color: #4CAF50; /* Green add button */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-btn:hover {
+            background-color: #45a049;
+        }
+        .continue-btn {
+            background-color: #2196F3; /* Blue continue button */
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none; /* Hidden initially */
+        }
+        .continue-btn:hover {
+            background-color: #0b7dda;
+        }
+        .summary {
+            margin-top: 50px;
+            background-color: #1e1e1e;
             padding: 20px;
-            width: 300px;
-            text-align: center;
-        }
-        .menu-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
             border-radius: 8px;
+            display: none; /* Hidden initially */
         }
-        .order-btn {
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-btn {
+            background-color: #555555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .quantity-btn:hover {
+            background-color: #777777;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .table-number {
+            margin-top: 20px;
+        }
+        .table-number input {
+            padding: 8px;
+            width: 100%;
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #555555;
+            border-radius: 5px;
+        }
+        .place-order-btn {
             background-color: #25D366; /* WhatsApp green */
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 15px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            width: 100%;
+            margin-top: 20px;
         }
-        .order-btn:hover {
+        .place-order-btn:hover {
             background-color: #128C7E;
         }
-        footer {
-            background-color: #8B4513;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
+        /* Hide other sections initially */
+        #about, #contact {
+            display: none;
         }
     </style>
 </head>
@@ -87,72 +146,126 @@
         <h1>Soundtrack Cafe</h1>
         <p>Your cozy spot for coffee and tunes</p>
     </header>
-    <nav>
-        <a href="#menu">Menu</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
     <div class="container">
         <section id="menu">
             <h2>Our Menu</h2>
-            <div class="menu">
-                <div class="menu-item">
-                    <img src="https://via.placeholder.com/300x200?text=Cappuccino" alt="Cappuccino">
-                    <h3>Cappuccino</h3>
-                    <p>$4.50 - Rich espresso with steamed milk and foam.</p>
-                    <button class="order-btn" onclick="orderItem('Cappuccino')">Order via WhatsApp</button>
-                </div>
-                <div class="menu-item">
-                    <img src="https://via.placeholder.com/300x200?text=Latte" alt="Latte">
-                    <h3>Latte</h3>
-                    <p>$4.00 - Smooth espresso with steamed milk.</p>
-                    <button class="order-btn" onclick="orderItem('Latte')">Order via WhatsApp</button>
-                </div>
-                <div class="menu-item">
-                    <img src="https://via.placeholder.com/300x200?text=Sandwich" alt="Club Sandwich">
-                    <h3>Club Sandwich</h3>
-                    <p>$8.00 - Turkey, bacon, lettuce, and tomato on toasted bread.</p>
-                    <button class="order-btn" onclick="orderItem('Club Sandwich')">Order via WhatsApp</button>
-                </div>
-                <div class="menu-item">
-                    <img src="https://via.placeholder.com/300x200?text=Croissant" alt="Croissant">
-                    <h3>Butter Croissant</h3>
-                    <p>$3.50 - Flaky, buttery pastry.</p>
-                    <button class="order-btn" onclick="orderItem('Butter Croissant')">Order via WhatsApp</button>
-                </div>
-                <div class="menu-item">
-                    <img src="https://via.placeholder.com/300x200?text=Salad" alt="Caesar Salad">
-                    <h3>Caesar Salad</h3>
-                    <p>$7.00 - Crisp romaine with Caesar dressing and croutons.</p>
-                    <button class="order-btn" onclick="orderItem('Caesar Salad')">Order via WhatsApp</button>
-                </div>
-                <div class="menu-item">
-                    <img src="https://via.placeholder.com/300x200?text=Cake" alt="Chocolate Cake">
-                    <h3>Chocolate Cake</h3>
-                    <p>$5.00 - Decadent chocolate layers with frosting.</p>
-                    <button class="order-btn" onclick="orderItem('Chocolate Cake')">Order via WhatsApp</button>
-                </div>
+            <ul class="menu">
+                <li class="menu-item">
+                    <span class="menu-item-name">Cappuccino</span>
+                    <span class="menu-item-price">$4.50</span>
+                    <button class="add-btn" onclick="addToCart('Cappuccino', 4.50)">Add</button>
+                </li>
+                <li class="menu-item">
+                    <span class="menu-item-name">Latte</span>
+                    <span class="menu-item-price">$4.00</span>
+                    <button class="add-btn" onclick="addToCart('Latte', 4.00)">Add</button>
+                </li>
+                <li class="menu-item">
+                    <span class="menu-item-name">Club Sandwich</span>
+                    <span class="menu-item-price">$8.00</span>
+                    <button class="add-btn" onclick="addToCart('Club Sandwich', 8.00)">Add</button>
+                </li>
+                <li class="menu-item">
+                    <span class="menu-item-name">Butter Croissant</span>
+                    <span class="menu-item-price">$3.50</span>
+                    <button class="add-btn" onclick="addToCart('Butter Croissant', 3.50)">Add</button>
+                </li>
+                <li class="menu-item">
+                    <span class="menu-item-name">Caesar Salad</span>
+                    <span class="menu-item-price">$7.00</span>
+                    <button class="add-btn" onclick="addToCart('Caesar Salad', 7.00)">Add</button>
+                </li>
+                <li class="menu-item">
+                    <span class="menu-item-name">Chocolate Cake</span>
+                    <span class="menu-item-price">$5.00</span>
+                    <button class="add-btn" onclick="addToCart('Chocolate Cake', 5.00)">Add</button>
+                </li>
+            </ul>
+        </section>
+        <button class="continue-btn" onclick="showSummary()">Continue</button>
+        <section class="summary" id="summary">
+            <h2>Order Summary</h2>
+            <div id="summary-items"></div>
+            <div class="total">Total: $<span id="total-price">0.00</span></div>
+            <div class="table-number">
+                <label for="table">Table Number:</label>
+                <input type="text" id="table" placeholder="Enter table number">
             </div>
-        </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Soundtrack Cafe is your go-to spot for great coffee, delicious food, and a playlist of your favorite tunes. Relax in our cozy cafe setting and let the music inspire your day.</p>
-        </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Address: 123 Music Lane, Tune City<br>Phone: (123) 456-7890<br>Email: info@soundtrackcafe.com</p>
+            <button class="place-order-btn" onclick="placeOrder()">Place Order via WhatsApp</button>
         </section>
     </div>
-    <footer>
-        <p>&copy; 2023 Soundtrack Cafe. All rights reserved.</p>
-    </footer>
 
     <script>
-        function orderItem(item) {
-            const phoneNumber = "919370569122"; // Replace with your cafe's WhatsApp number (include country code, e.g., +1 for US)
-            const message = `Hi, I'd like to order a ${item}.`;
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        function addToCart(item, price) {
+            if (!cart[item]) {
+                cart[item] = { quantity: 1, price: price };
+            } else {
+                cart[item].quantity++;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.querySelector('.continue-btn').style.display = 'block';
+        }
+
+        function showSummary() {
+            document.getElementById('summary').style.display = 'block';
+            updateSummary();
+            document.getElementById('summary').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateSummary() {
+            const summaryItems = document.getElementById('summary-items');
+            summaryItems.innerHTML = '';
+            let total = 0;
+            for (const item in cart) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'summary-item';
+                itemDiv.innerHTML = `
+                    <span>${item} ($${cart[item].price.toFixed(2)} each)</span>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="changeQuantity('${item}', -1)">-</button>
+                        <span>${cart[item].quantity}</span>
+                        <button class="quantity-btn" onclick="changeQuantity('${item}', 1)">+</button>
+                    </div>
+                    <span>$${(cart[item].quantity * cart[item].price).toFixed(2)}</span>
+                `;
+                summaryItems.appendChild(itemDiv);
+                total += cart[item].quantity * cart[item].price;
+            }
+            document.getElementById('total-price').textContent = total.toFixed(2);
+        }
+
+        function changeQuantity(item, delta) {
+            cart[item].quantity += delta;
+            if (cart[item].quantity <= 0) {
+                delete cart[item];
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateSummary();
+            if (Object.keys(cart).length === 0) {
+                document.querySelector('.continue-btn').style.display = 'none';
+                document.getElementById('summary').style.display = 'none';
+            }
+        }
+
+        function placeOrder() {
+            const table = document.getElementById('table').value || 'Not specified';
+            let message = `Order Summary:\nTable: ${table}\n\n`;
+            let total = 0;
+            for (const item in cart) {
+                message += `${item} x${cart[item].quantity} - $${(cart[item].quantity * cart[item].price).toFixed(2)}\n`;
+                total += cart[item].quantity * cart[item].price;
+            }
+            message += `\nTotal: $${total.toFixed(2)}\n\nPlease confirm my order.`;
+            const phoneNumber = "1234567890"; // Replace with your cafe's WhatsApp number (include country code, e.g., +1 for US)
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
+        }
+
+        // Load summary if cart has items on page load
+        if (Object.keys(cart).length > 0) {
+            document.querySelector('.continue-btn').style.display = 'block';
         }
     </script>
 </body>

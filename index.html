@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundtrack Cafe</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #8B4513; /* Cafe brown */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        header::before {
+            content: "🎵";
+            font-size: 2em;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+        nav {
+            background-color: #D2691E; /* Lighter brown */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .order-btn {
+            background-color: #25D366; /* WhatsApp green */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .order-btn:hover {
+            background-color: #128C7E;
+        }
+        footer {
+            background-color: #8B4513;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Soundtrack Cafe</h1>
+        <p>Your cozy spot for coffee and tunes</p>
+    </header>
+    <nav>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="menu">
+            <h2>Our Menu</h2>
+            <div class="menu">
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Cappuccino" alt="Cappuccino">
+                    <h3>Cappuccino</h3>
+                    <p>$4.50 - Rich espresso with steamed milk and foam.</p>
+                    <button class="order-btn" onclick="orderItem('Cappuccino')">Order via WhatsApp</button>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Latte" alt="Latte">
+                    <h3>Latte</h3>
+                    <p>$4.00 - Smooth espresso with steamed milk.</p>
+                    <button class="order-btn" onclick="orderItem('Latte')">Order via WhatsApp</button>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Sandwich" alt="Club Sandwich">
+                    <h3>Club Sandwich</h3>
+                    <p>$8.00 - Turkey, bacon, lettuce, and tomato on toasted bread.</p>
+                    <button class="order-btn" onclick="orderItem('Club Sandwich')">Order via WhatsApp</button>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Croissant" alt="Croissant">
+                    <h3>Butter Croissant</h3>
+                    <p>$3.50 - Flaky, buttery pastry.</p>
+                    <button class="order-btn" onclick="orderItem('Butter Croissant')">Order via WhatsApp</button>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Salad" alt="Caesar Salad">
+                    <h3>Caesar Salad</h3>
+                    <p>$7.00 - Crisp romaine with Caesar dressing and croutons.</p>
+                    <button class="order-btn" onclick="orderItem('Caesar Salad')">Order via WhatsApp</button>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/300x200?text=Cake" alt="Chocolate Cake">
+                    <h3>Chocolate Cake</h3>
+                    <p>$5.00 - Decadent chocolate layers with frosting.</p>
+                    <button class="order-btn" onclick="orderItem('Chocolate Cake')">Order via WhatsApp</button>
+                </div>
+            </div>
+        </section>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Soundtrack Cafe is your go-to spot for great coffee, delicious food, and a playlist of your favorite tunes. Relax in our cozy cafe setting and let the music inspire your day.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Address: 123 Music Lane, Tune City<br>Phone: (123) 456-7890<br>Email: info@soundtrackcafe.com</p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2023 Soundtrack Cafe. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function orderItem(item) {
+            const phoneNumber = "919370569122"; // Replace with your cafe's WhatsApp number (include country code, e.g., +1 for US)
+            const message = `Hi, I'd like to order a ${item}.`;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

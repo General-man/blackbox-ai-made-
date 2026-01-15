@@ -29,7 +29,7 @@
             padding: 60px 20px;
             text-align: center;
             background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
-                        url('https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&q=80&w=1000');
+                        url('https://haycafe.vn/wp-content/uploads/2021/12/Hinh-anh-cafe-sua-dep.jpg');
             background-size: cover;
             background-position: center;
             border-bottom: 2px solid var(--accent-gold);
@@ -97,20 +97,20 @@
         .controls-wrapper { min-width: 100px; display: flex; justify-content: flex-end; }
         
         .add-initial {
-            background: transparent;
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            padding: 8px 20px;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 8px 25px;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .add-initial:hover {
-            background: var(--accent-gold);
-            color: var(--bg-dark);
-        }
+    transform: scale(1.05);       
+    filter: brightness(1.1);       
+}
 
         .qty-controls {
             display: flex;
@@ -216,11 +216,11 @@
 <div class="container" id="menu-container">
     </div>
 
-<button class="continue-btn" id="floating-btn" onclick="scrollToSummary()">VIEW ORDER SUMMARY</button>
+<button class="continue-btn" id="floating-btn" onclick="scrollToSummary()">View Order</button>
 
 <div class="container">
     <div class="summary-card" id="summary-section">
-        <h2 style="font-family: 'Playfair Display'; margin-top: 0;">Order Details</h2>
+        <h2 style="font-family: 'Playfair Display'; margin-top: 0;">Your Order</h2>
         <div id="summary-list"></div>
         <div class="total-row">Total: ₹<span id="grand-total">0</span></div>
         
@@ -229,7 +229,7 @@
             <input type="text" id="table-input" placeholder="Enter your table number...">
         </div>
         
-        <button class="whatsapp-btn" onclick="sendToWhatsApp()">PLACE ORDER VIA WHATSAPP</button>
+        <button class="whatsapp-btn" onclick="sendToWhatsApp()">PLACE ORDER </button>
     </div>
 </div>
 
@@ -245,7 +245,7 @@
             ]
         },
         {
-            category: "🧋 Milkshakes & Smoothies",
+            category: "🥛 Milkshakes & Smoothies",
             id: "shakes",
             items: [
                 { name: "Oreo Milkshake", price: 180 },
@@ -380,7 +380,7 @@
             message += `• ${cart[key].name} x${cart[key].qty} - ₹${cart[key].qty * cart[key].price}%0A`;
         }
         message += `%0A*Total Amount: ₹${document.getElementById('grand-total').innerText}*`;
-        window.open(`https://wa.me/YOUR_NUMBER_HERE?text=${message}`, '_blank');
+        window.open(`https://wa.me/919370569122?text=${message}`, '_blank');
     }
 
     loadMenu();

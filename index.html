@@ -97,20 +97,20 @@
         .controls-wrapper { min-width: 100px; display: flex; justify-content: flex-end; }
         
         .add-initial {
-            background: var(--accent-gold);
-            color: var(--bg-dark);
-            border: none;
-            padding: 8px 25px;
+            background: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 8px 20px;
             border-radius: 50px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .add-initial:hover {
-    transform: scale(1.05);       
-    filter: brightness(1.1);       
-}
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+        }
 
         .qty-controls {
             display: flex;
@@ -229,7 +229,7 @@
             <input type="text" id="table-input" placeholder="Enter your table number...">
         </div>
         
-        <button class="whatsapp-btn" onclick="sendToWhatsApp()">PLACE ORDER </button>
+        <button class="whatsapp-btn" onclick="sendToWhatsApp()">PLACE ORDER Via Whatsapp </button>
     </div>
 </div>
 
